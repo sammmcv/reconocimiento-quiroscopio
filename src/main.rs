@@ -477,9 +477,9 @@ fn main() -> Result<()> {
         gain_y: 12.0,
         max_speed: 40.0,
         alpha: 0.35,  // Más suavizado
-        axis_sign_y: 1.0,  // Movimiento vertical normal
-        horizontal_axis: quiroscopio::mouse_filter::MotionAxis::Rx,  // Z controla movimiento horizontal
-        vertical_axis: quiroscopio::mouse_filter::MotionAxis::Rz,  // X controla movimiento vertical
+        axis_sign_y: 1.0,
+        horizontal_axis: quiroscopio::mouse_filter::MotionAxis::Rx,  // Pitch controla izq-der (perfecto)
+        vertical_axis: quiroscopio::mouse_filter::MotionAxis::Ry,  // Yaw controla arriba-abajo
         ..GyroMouseConfig::default()
     });
     let mut cursor_mode_prev = false;

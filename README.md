@@ -60,6 +60,29 @@ cargo build
 cargo build --release
 ```
 
+## Instalar ONNX Runtime (librería nativa)
+
+El proyecto usa ONNX Runtime para la inferencia nativa. Descarga y extrae la distribución apropiada y coloca la carpeta resultante en la raíz del repositorio (o en otra ruta accesible).
+
+```bash
+# Descarga la versión binaria para Linux x86_64 (ajusta la versión si hace falta)
+wget https://github.com/microsoft/onnxruntime/releases/download/v1.22.0/onnxruntime-linux-x64-1.22.0.tgz
+tar -xzf onnxruntime-linux-x64-1.22.0.tgz
+# Esto crea la carpeta: onnxruntime-linux-x64-1.22.0/
+```
+
+Para que Rust (y la librería `ort`) encuentre las bibliotecas nativas en tiempo de ejecución, añade la ruta `onnxruntime-linux-x64-1.22.0/lib` a `LD_LIBRARY_PATH`.
+
+Ejemplos según tu shell:
+
+```bash
+# fish
+set -x LD_LIBRARY_PATH (pwd)/onnxruntime-linux-x64-1.22.0/lib $LD_LIBRARY_PATH
+
+# bash / zsh
+export LD_LIBRARY_PATH="$PWD/onnxruntime-linux-x64-1.22.0/lib:${LD_LIBRARY_PATH:-}"
+```
+
 ## Uso
 
 ### Reconocimiento en tiempo continuo
@@ -68,7 +91,7 @@ cargo build --release
 set -x LD_LIBRARY_PATH onnxruntime-linux-x64-1.22.0/lib $LD_LIBRARY_PATH
 
 # Ejecuta el binario principal con la MAC del gateway BLE
-cargo run --release -- 28:CD:C1:08:37:69
+cargo run --release --bin quiroscopio -- 28:CD:C1:08:37:69
 ```
 
 ### Modo replay desde CSV
